@@ -16,8 +16,6 @@ module pipeline #(
     output store_enable,
     output mem_enable,
 	
-	
-	
 	output nicEn, // nicEnable signal
 	output nicEnWr,
 	output adder_nic
@@ -33,6 +31,7 @@ module pipeline #(
     /*stage 2: ID, wire*/
     /*stage register*/
     reg s2_reg_writen_en;
+    reg s2_reg_nic_en;      // NIC enable
     reg [REG_ADDRESS_LENGTH-1:0] s2_reg_rd_address;
     reg [DATA_WIDTH-1:0] s2_reg_data1, s2_reg_data2;
     reg [5:0] s2_opcode; 
@@ -192,7 +191,7 @@ module pipeline #(
 		s2_ww <= ww; //Width of operation	
         s2_reg_ppp <= ppp;
         s2_reg_dmem_load_signal <= dmem_load_signal;
-		
+        s2_reg_nic_l <= nicEn;
 		
     end
 
@@ -206,7 +205,14 @@ module pipeline #(
         .result(alu_result)
     );
 
-    mux_2 mux_module(
+    mux_2 mux_ALU_input(
+        .in0(alu_result),
+        .in1(dmem_dataOut),
+        .select(s2_reg_dmem_load_signal),
+        .out(mux_result)
+    ); 
+
+    mux_2 mux_DMEM_NIC(
         .in0(),
         .in1(),
         .select(),
