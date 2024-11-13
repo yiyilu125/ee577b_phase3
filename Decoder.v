@@ -20,8 +20,8 @@ module instruction_decoder (
 	output reg load_signal,
 	
 	output reg [2:0]ppp,
-	output reg nicEn_output,
-	output reg nicEnWr_ouput,
+	output reg nicEn,
+	output reg nicEnWr,
 	output reg [1:0] adder_nic
 );
 

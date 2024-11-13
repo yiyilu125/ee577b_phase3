@@ -19,7 +19,8 @@ module pipeline #(
 	
 	
 	output nicEn, // nicEnable signal
-	output nicEnWr
+	output nicEnWr,
+	output adder_nic
 );
     /*stage 1: IF reg, wire*/
     //stage register
@@ -120,7 +121,8 @@ module pipeline #(
         .load_signal(dmem_load_signal),
 		
 		.nicEn(nicEn),
-		.nicEnWr(nicEnWr)
+		.nicEnWr(nicEnWr),
+		.adder_nic(adder_nic)
     );
 	
 	
@@ -190,6 +192,8 @@ module pipeline #(
 		s2_ww <= ww; //Width of operation	
         s2_reg_ppp <= ppp;
         s2_reg_dmem_load_signal <= dmem_load_signal;
+		
+		
     end
 
     /***************stage 3: Execution or Memory Access***************/
@@ -203,10 +207,10 @@ module pipeline #(
     );
 
     mux_2 mux_module(
-        .in0(alu_result),
-        .in1(dmem_dataOut),
-        .select(s2_reg_dmem_load_signal),
-        .out(mux_result)
+        .in0(),
+        .in1(),
+        .select(),
+        .out()
     ); 
 
     //EXE,MEM/WB register
