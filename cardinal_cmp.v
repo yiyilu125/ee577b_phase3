@@ -1,7 +1,39 @@
 module cardinal_cmp #(
-
+    parameter INSTRUCTION_WIDTH = 32,
+    parameter DATA_WIDTH = 64,
+    parameter PC_WIDTH = 32,
+    parameter DMEM_ADDRESS_WIDTH = 32
 )(
     input clk, reset,
+    input [INSTRUCTION_WIDTH-1:0] inst_in_00, inst_in_01, inst_in_02, inst_in_03,
+                                   inst_in_10, inst_in_11, inst_in_12, inst_in_13,
+                                   inst_in_20, inst_in_21, inst_in_22, inst_in_23,
+                                   inst_in_30, inst_in_31, inst_in_32, inst_in_33,
+    input [DATA_WIDTH-1:0] d_in_00, d_in_01, d_in_02, d_in_03,
+                           d_in_10, d_in_11, d_in_12, d_in_13,
+                           d_in_20, d_in_21, d_in_22, d_in_23,
+                           d_in_30, d_in_31, d_in_32, d_in_33,
+    output [PC_WIDTH-1:0] pc_out_00, pc_out_01, pc_out_02, pc_out_03,
+                          pc_out_10, pc_out_11, pc_out_12, pc_out_13,
+                          pc_out_20, pc_out_21, pc_out_22, pc_out_23,
+                          pc_out_30, pc_out_31, pc_out_32, pc_out_33,
+    output [DATA_WIDTH-1:0] d_out_00, d_out_01, d_out_02, d_out_03,
+                            d_out_10, d_out_11, d_out_12, d_out_13,
+                            d_out_20, d_out_21, d_out_22, d_out_23,
+                            d_out_30, d_out_31, d_out_32, d_out_33,
+    output [DMEM_ADDRESS_WIDTH-1:0] addr_out_00, addr_out_01, addr_out_02, addr_out_03,
+                                    addr_out_10, addr_out_11, addr_out_12, addr_out_13,
+                                    addr_out_20, addr_out_21, addr_out_22, addr_out_23,
+                                    addr_out_30, addr_out_31, addr_out_32, addr_out_33,
+    output memWrEn_00, memWrEn_01, memWrEn_02, memWrEn_03,
+           memWrEn_10, memWrEn_11, memWrEn_12, memWrEn_13,
+           memWrEn_20, memWrEn_21, memWrEn_22, memWrEn_23,
+           memWrEn_30, memWrEn_31, memWrEn_32, memWrEn_33,
+    output memE_00, memE_01, memE_02, memE_03,
+           memE_10, memE_11, memE_12, memE_13,
+           memE_20, memE_21, memE_22, memE_23,
+           memE_30, memE_31, memE_32, memE_33
+
 );
 
 //wire 
@@ -9,7 +41,7 @@ wire polarity;
 
 //mesh
 mesh4x4 #(
-    .DATA_WIDTH(64),
+    .DATA_WIDTH(DATA_WIDTH),
     .DEPTH(1)
 )mesh(
     .clk(clk),
@@ -32,25 +64,45 @@ mesh4x4 #(
     .pesi_r11(pesi_32), .pedi_r11(pedi_32), .peri_r11(peri_32), .pero_r11(pero_32), .pedo_r11(pedo_32), .peso_r11(peso_32),
     .pesi_r15(pesi_33), .pedi_r15(pedi_33), .peri_r15(peri_33), .pero_r15(pero_33), .pedo_r15(pedo_33), .peso_r15(peso_33)
 );
-nic_pe_module npm00(
-    .clk(clk),
-    .reset(reset),
-    .net_so(),
-    .net_ro(),
-    .net_do(),
-    .net_polarity(polarity),
-    .net_si(),
-    .net_ri(),
-    .net_di(),
+
+// nic_pe_module npm00(
+//     .clk(clk),
+//     .reset(reset),
+//     .net_so(pesi_00),
+//     .net_ro(peri_00),
+//     .net_do(pedi_00),
+//     .net_polarity(polarity),
+//     .net_si(peso_00),
+//     .net_ri(pero_00),
+//     .net_di(pedo_00),
     
-    //DMeme, IMem
-    .inst_in(),
-    .d_in(),
-    .pc_out(),
-    .d_out(),
-    .addr_out(),
-    .memWrEn(),
-    .memEn()
-);
+//     //DMeme, IMem
+//     .inst_in(inst_in_00),
+//     .d_in(d_in_00),
+//     .pc_out(pc_out_00),
+//     .d_out(d_out_00),
+//     .addr_out(addr_out_00),
+//     .memWrEn(memWrEn_00),
+//     .memEn(memEn_00)
+// );
+
+nic_pe_module npm00 (.clk(clk), .reset(reset), .net_so(pesi_00), .net_ro(peri_00), .net_do(pedi_00), .net_polarity(polarity), .net_si(peso_00), .net_ri(pero_00), .net_di(pedo_00), .inst_in(inst_in_00), .d_in(d_in_00), .pc_out(pc_out_00), .d_out(d_out_00), .addr_out(addr_out_00), .memWrEn(memWrEn_00), .memEn(memE_00));
+nic_pe_module npm01 (.clk(clk), .reset(reset), .net_so(pesi_01), .net_ro(peri_01), .net_do(pedi_01), .net_polarity(polarity), .net_si(peso_01), .net_ri(pero_01), .net_di(pedo_01), .inst_in(inst_in_01), .d_in(d_in_01), .pc_out(pc_out_01), .d_out(d_out_01), .addr_out(addr_out_01), .memWrEn(memWrEn_01), .memEn(memE_01));
+nic_pe_module npm02 (.clk(clk), .reset(reset), .net_so(pesi_02), .net_ro(peri_02), .net_do(pedi_02), .net_polarity(polarity), .net_si(peso_02), .net_ri(pero_02), .net_di(pedo_02), .inst_in(inst_in_02), .d_in(d_in_02), .pc_out(pc_out_02), .d_out(d_out_02), .addr_out(addr_out_02), .memWrEn(memWrEn_02), .memEn(memE_02));
+nic_pe_module npm03 (.clk(clk), .reset(reset), .net_so(pesi_03), .net_ro(peri_03), .net_do(pedi_03), .net_polarity(polarity), .net_si(peso_03), .net_ri(pero_03), .net_di(pedo_03), .inst_in(inst_in_03), .d_in(d_in_03), .pc_out(pc_out_03), .d_out(d_out_03), .addr_out(addr_out_03), .memWrEn(memWrEn_03), .memEn(memE_03));
+nic_pe_module npm10 (.clk(clk), .reset(reset), .net_so(pesi_10), .net_ro(peri_10), .net_do(pedi_10), .net_polarity(polarity), .net_si(peso_10), .net_ri(pero_10), .net_di(pedo_10), .inst_in(inst_in_10), .d_in(d_in_10), .pc_out(pc_out_10), .d_out(d_out_10), .addr_out(addr_out_10), .memWrEn(memWrEn_10), .memEn(memE_10));
+nic_pe_module npm11 (.clk(clk), .reset(reset), .net_so(pesi_11), .net_ro(peri_11), .net_do(pedi_11), .net_polarity(polarity), .net_si(peso_11), .net_ri(pero_11), .net_di(pedo_11), .inst_in(inst_in_11), .d_in(d_in_11), .pc_out(pc_out_11), .d_out(d_out_11), .addr_out(addr_out_11), .memWrEn(memWrEn_11), .memEn(memE_11));
+nic_pe_module npm12 (.clk(clk), .reset(reset), .net_so(pesi_12), .net_ro(peri_12), .net_do(pedi_12), .net_polarity(polarity), .net_si(peso_12), .net_ri(pero_12), .net_di(pedo_12), .inst_in(inst_in_12), .d_in(d_in_12), .pc_out(pc_out_12), .d_out(d_out_12), .addr_out(addr_out_12), .memWrEn(memWrEn_12), .memEn(memE_12));
+nic_pe_module npm13 (.clk(clk), .reset(reset), .net_so(pesi_13), .net_ro(peri_13), .net_do(pedi_13), .net_polarity(polarity), .net_si(peso_13), .net_ri(pero_13), .net_di(pedo_13), .inst_in(inst_in_13), .d_in(d_in_13), .pc_out(pc_out_13), .d_out(d_out_13), .addr_out(addr_out_13), .memWrEn(memWrEn_13), .memEn(memE_13));
+nic_pe_module npm20 (.clk(clk), .reset(reset), .net_so(pesi_20), .net_ro(peri_20), .net_do(pedi_20), .net_polarity(polarity), .net_si(peso_20), .net_ri(pero_20), .net_di(pedo_20), .inst_in(inst_in_20), .d_in(d_in_20), .pc_out(pc_out_20), .d_out(d_out_20), .addr_out(addr_out_20), .memWrEn(memWrEn_20), .memEn(memE_20));
+nic_pe_module npm21 (.clk(clk), .reset(reset), .net_so(pesi_21), .net_ro(peri_21), .net_do(pedi_21), .net_polarity(polarity), .net_si(peso_21), .net_ri(pero_21), .net_di(pedo_21), .inst_in(inst_in_21), .d_in(d_in_21), .pc_out(pc_out_21), .d_out(d_out_21), .addr_out(addr_out_21), .memWrEn(memWrEn_21), .memEn(memE_21));
+nic_pe_module npm22 (.clk(clk), .reset(reset), .net_so(pesi_22), .net_ro(peri_22), .net_do(pedi_22), .net_polarity(polarity), .net_si(peso_22), .net_ri(pero_22), .net_di(pedo_22), .inst_in(inst_in_22), .d_in(d_in_22), .pc_out(pc_out_22), .d_out(d_out_22), .addr_out(addr_out_22), .memWrEn(memWrEn_22), .memEn(memE_22));
+nic_pe_module npm23 (.clk(clk), .reset(reset), .net_so(pesi_23), .net_ro(peri_23), .net_do(pedi_23), .net_polarity(polarity), .net_si(peso_23), .net_ri(pero_23), .net_di(pedo_23), .inst_in(inst_in_23), .d_in(d_in_23), .pc_out(pc_out_23), .d_out(d_out_23), .addr_out(addr_out_23), .memWrEn(memWrEn_23), .memEn(memE_23));
+nic_pe_module npm30 (.clk(clk), .reset(reset), .net_so(pesi_30), .net_ro(peri_30), .net_do(pedi_30), .net_polarity(polarity), .net_si(peso_30), .net_ri(pero_30), .net_di(pedo_30), .inst_in(inst_in_30), .d_in(d_in_30), .pc_out(pc_out_30), .d_out(d_out_30), .addr_out(addr_out_30), .memWrEn(memWrEn_30), .memEn(memE_30));
+nic_pe_module npm31 (.clk(clk), .reset(reset), .net_so(pesi_31), .net_ro(peri_31), .net_do(pedi_31), .net_polarity(polarity), .net_si(peso_31), .net_ri(pero_31), .net_di(pedo_31), .inst_in(inst_in_31), .d_in(d_in_31), .pc_out(pc_out_31), .d_out(d_out_31), .addr_out(addr_out_31), .memWrEn(memWrEn_31), .memEn(memE_31));
+nic_pe_module npm32 (.clk(clk), .reset(reset), .net_so(pesi_32), .net_ro(peri_32), .net_do(pedi_32), .net_polarity(polarity), .net_si(peso_32), .net_ri(pero_32), .net_di(pedo_32), .inst_in(inst_in_32), .d_in(d_in_32), .pc_out(pc_out_32), .d_out(d_out_32), .addr_out(addr_out_32), .memWrEn(memWrEn_32), .memEn(memE_32));
+nic_pe_module npm33 (.clk(clk), .reset(reset), .net_so(pesi_33), .net_ro(peri_33), .net_do(pedi_33), .net_polarity(polarity), .net_si(peso_33), .net_ri(pero_33), .net_di(pedo_33), .inst_in(inst_in_33), .d_in(d_in_33), .pc_out(pc_out_33), .d_out(d_out_33), .addr_out(addr_out_33), .memWrEn(memWrEn_33), .memEn(memE_33));
+
+
 
 endmodule
