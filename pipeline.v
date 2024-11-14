@@ -125,7 +125,7 @@ module pipeline #(
 		.nicEn(nicEn),
 		.nicEnWr(nicEnWr),
 		.adder_nic(adder_nic),
-        .loac_nic(nic_load_signal)
+        .load_nic(nic_load_signal)
     );
 	
 	
