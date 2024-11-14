@@ -13,6 +13,7 @@ module pipeline #(
     output [INSTRUCTION_WIDTH-1:0] imem_address,
     output [INSTRUCTION_WIDTH-1:0] dmem_address,
     output [DATA_WIDTH-1:0] dmem_dataIn,
+	output [DATA_WIDTH-1:0] nic_dataIn,
     output store_enable,
     output mem_enable,
 	
