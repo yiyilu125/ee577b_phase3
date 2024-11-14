@@ -22,7 +22,8 @@ module instruction_decoder (
 	output reg [2:0]ppp,
 	output reg nicEn,
 	output reg nicEnWr,
-	output reg [1:0] adder_nic
+	output reg [1:0] adder_nic,
+	output reg load_nic
 );
 
 always @(*) begin
@@ -54,8 +55,10 @@ always @(*) begin
 			mem_Enable=0;
 			load_signal=0;
 			
+			
 			nicEn=0;
 			nicEnWr=0;
+			load_nic=0;
 			
         end
         6'b100010: 
@@ -87,6 +90,7 @@ always @(*) begin
 			
 			nicEn=0;
 			nicEnWr=0;
+			load_nic=0;
 			
 			
         end
@@ -115,6 +119,7 @@ always @(*) begin
 			
 			nicEn=0;
 			nicEnWr=0;
+			load_nic=0;
 			
 			
         end
@@ -139,24 +144,30 @@ always @(*) begin
         
 			store_Enable=0;
 			mem_Enable=1;
-			load_signal=1;
+			
 			
 			if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==1)
 			begin
 				nicEn=1;
 				nicEnWr=0;
 				adder_nic=2'b01;
+				load_signal=0;
+				load_nic=1;
 			end
 			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==0)
 			begin
 				nicEn=1;
 				nicEnWr=0;
 				adder_nic=2'b00;
+				load_signal=0;
+				load_nic=1;
 			end
 			else 
 			begin
 				nicEn=0;
 				nicEnWr=0;
+				load_signal=1;
+				load_nic=0;
 			end
 			
         end
@@ -189,17 +200,24 @@ always @(*) begin
 				nicEn=1;
 				nicEnWr=1;
 				adder_nic=2'b11;
+				load_signal=0;
+				load_nic=0;
 			end
 			else if(instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==0)
 			begin
 				nicEn=1;
 				nicEnWr=1;
 				adder_nic=2'b10;
+				load_signal=0;
+				load_nic=0;
+				
 			end
 			else 
 			begin
 				nicEn=0;
 				nicEnWr=0;
+				load_signal=0;
+				load_nic=0;
 			end
 			
 			
@@ -230,6 +248,7 @@ always @(*) begin
 			
 			nicEn=0;
 			nicEnWr=0;
+			load_nic=0;
 			
 			
         end
@@ -256,6 +275,7 @@ always @(*) begin
 			
 			nicEn=0;
 			nicEnWr=0;
+			load_nic=0;
 			
 			
 		end
