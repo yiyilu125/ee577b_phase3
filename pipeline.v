@@ -31,12 +31,12 @@ module pipeline #(
     /*stage 2: ID, wire*/
     /*stage register*/
     reg s2_reg_writen_en;
-    reg s2_reg_nic_en;      // NIC enable
     reg [REG_ADDRESS_LENGTH-1:0] s2_reg_rd_address;
     reg [DATA_WIDTH-1:0] s2_reg_data1, s2_reg_data2;
     reg [5:0] s2_opcode; 
 	reg [1:0] s2_ww;	// width of arithmatic operation at S2
     reg s2_reg_dmem_load_signal;
+    reg s2_reg_nic_load_signal;
     reg [2:0] s2_reg_ppp;
     /*wire*/
 	wire [1:0] ww; //width of arithmatic operation at S2
@@ -58,6 +58,7 @@ module pipeline #(
     wire mux_ctrl_rB;
     wire store_en, load_en;
     wire dmem_load_signal;
+    wire nic_load_signal;
 
     /*stage 3: EXE & MEM reg, wire*/
     //stage register
@@ -68,6 +69,7 @@ module pipeline #(
     //wire
     wire [DATA_WIDTH-1:0] alu_result;
     wire [DATA_WIDTH-1:0] mux_result;
+    wire [DATA_WIDTH-1:0] data_result;
 
     /******************************stage 1: Instruction Fetch******************************/
     //PC module & IMEM module
@@ -121,7 +123,8 @@ module pipeline #(
 		
 		.nicEn(nicEn),
 		.nicEnWr(nicEnWr),
-		.adder_nic(adder_nic)
+		.adder_nic(adder_nic),
+        .loac_nic(nic_load_signal)
     );
 	
 	
@@ -213,17 +216,17 @@ module pipeline #(
     ); 
 
     mux_2 mux_DMEM_NIC(
-        .in0(),
-        .in1(),
-        .select(),
-        .out()
+        .in0(mux_result),
+        .in1(nic_dataOut),
+        .select(s2_reg_nic_load_signal),
+        .out(data_result)
     ); 
 
     //EXE,MEM/WB register
     always@(posedge clk)begin
         s3_reg_write_en <= s2_reg_writen_en;
         s3_reg_rd_address <= s2_reg_rd_address;
-        s3_reg_result <= mux_result;
+        s3_reg_result <= data_result;
         s3_reg_ppp <= s2_reg_ppp;
     end
 
