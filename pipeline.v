@@ -194,7 +194,7 @@ module pipeline #(
 		s2_ww <= ww; //Width of operation	
         s2_reg_ppp <= ppp;
         s2_reg_dmem_load_signal <= dmem_load_signal;
-        s2_reg_nic_l <= nicEn;
+        s2_reg_nic_load_signal <= nic_load_signal;
 		
     end
 
