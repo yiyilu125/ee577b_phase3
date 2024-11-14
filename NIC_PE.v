@@ -3,11 +3,11 @@ module nic_pe_module (
     input reset,
     output net_so,
     input net_ro,
-    output net_do,
+    output [63:0]net_do,
     input net_polarity,
     input net_si,
     output net_ri,
-    input net_di,
+    input [63:0]net_di,
     
   
     input [31:0]inst_in,  //instruction input 
@@ -23,11 +23,11 @@ module nic_pe_module (
 
 
 
-wire nic_PE_data;
-wire PE_nic_data;
+wire [63:0]nic_PE_data;
+wire [63:0]PE_nic_data;
 wire nicEn_w;
 wire nicEnWr_w;
-wire adder_nic_w;
+wire [1:0]adder_nic_w;
 
 
 
