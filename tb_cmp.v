@@ -1,37 +1,13 @@
-/////////////////////////////////////////////////////////
-// Filename       	: cpu_tb.v 				  
-// Description    	: Cardinal Processor Simulation Testbenc
-// Author         	: Praveen Sharma							  
-// Fixed dataIn, dataOut port for DMEM.
-// Fixed $readmemh statement for DM.fill
-// Fixed minor bugs, related to signal names
-/////////////////////////////////////////////////////////
-// Test Bench for the Cardinal Processor RTL Verification
-
 `timescale 1ns/10ps
 
 //Define the clock cycle
-`define CYCLE_TIME 100
+`define CYCLE_TIME 4
 
 // Include Files
 // Memory Files
 `include "./include/dmem.v"
 `include "./include/imem.v"
 `include "./include/gscl45nm.v"
-
-// Register File
-//`include "./design/REGFILE32x64.v"
-
-//Design File
-//`include "./design/cpu.v"
-//`include "./design/cardinal_nic.v"
-//`include "./design/cardinal_ring.v"
-//`include "./design/cardinal_router.v"
-
-// This testbench instantiates the following modules:
-// a. 64-bit Variable width Cardinal Processor as CPU, 
-// b. 256 X 32 bit word Instruction memory
-// c. 256 X 64 bit word Data memory
 
 module tb_cmp;
 reg CLK, RESET;
