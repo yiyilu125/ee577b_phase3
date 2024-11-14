@@ -38,6 +38,54 @@ module cardinal_cmp #(
 
 //wire 
 wire polarity;
+wire pesi_00, peri_00, pero_00, peso_00;
+wire [DATA_WIDTH-1:0] pedi_00, pedo_00;
+
+wire pesi_01, peri_01, pero_01, peso_01;
+wire [DATA_WIDTH-1:0] pedi_01, pedo_01;
+
+wire pesi_02, peri_02, pero_02, peso_02;
+wire [DATA_WIDTH-1:0] pedi_02, pedo_02;
+
+wire pesi_03, peri_03, pero_03, peso_03;
+wire [DATA_WIDTH-1:0] pedi_03, pedo_03;
+
+wire pesi_10, peri_10, pero_10, peso_10;
+wire [DATA_WIDTH-1:0] pedi_10, pedo_10;
+
+wire pesi_11, peri_11, pero_11, peso_11;
+wire [DATA_WIDTH-1:0] pedi_11, pedo_11;
+
+wire pesi_12, peri_12, pero_12, peso_12;
+wire [DATA_WIDTH-1:0] pedi_12, pedo_12;
+
+wire pesi_13, peri_13, pero_13, peso_13;
+wire [DATA_WIDTH-1:0] pedi_13, pedo_13;
+
+wire pesi_20, peri_20, pero_20, peso_20;
+wire [DATA_WIDTH-1:0] pedi_20, pedo_20;
+
+wire pesi_21, peri_21, pero_21, peso_21;
+wire [DATA_WIDTH-1:0] pedi_21, pedo_21;
+
+wire pesi_22, peri_22, pero_22, peso_22;
+wire [DATA_WIDTH-1:0] pedi_22, pedo_22;
+
+wire pesi_23, peri_23, pero_23, peso_23;
+wire [DATA_WIDTH-1:0] pedi_23, pedo_23;
+
+wire pesi_30, peri_30, pero_30, peso_30;
+wire [DATA_WIDTH-1:0] pedi_30, pedo_30;
+
+wire pesi_31, peri_31, pero_31, peso_31;
+wire [DATA_WIDTH-1:0] pedi_31, pedo_31;
+
+wire pesi_32, peri_32, pero_32, peso_32;
+wire [DATA_WIDTH-1:0] pedi_32, pedo_32;
+
+wire pesi_33, peri_33, pero_33, peso_33;
+wire [DATA_WIDTH-1:0] pedi_33, pedo_33;
+
 
 //mesh
 mesh4x4 #(
