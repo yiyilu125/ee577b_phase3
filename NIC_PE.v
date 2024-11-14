@@ -10,10 +10,10 @@ module nic_pe_module (
     input net_di,
     
   
-    input [31:0]inst_in,
-    input [63:0] d_in,  //  input fill from DMEM
+    input [31:0]inst_in,  //instruction input 
+    input [63:0] d_in,   //  input fill from DMEM
     output [31:0]pc_out, // program counter
-    output [63:0]d_out,// output dump  to DMEM
+    output [63:0]d_out,  // output dump  to DMEM
     output [31:0]addr_out, // DMEM address
     output memWrEn,
     output memEn
@@ -54,17 +54,18 @@ wire adder_nic_w;
 	pipeline  pp1 (
 	.clk(clk), 
 	.reset(reset),
-	.imem_instruction(inst_in),
-	.dmem_dataOut(d_in),
-	.nic_dataOut(nic_PE_data),// define nic -----> PE DATA
-	.imem_address(pc_out),
-	.dmem_address(addr_out),
-	.store_enable(memWrEn),
-	.mem_enable(memEn),
-	.nicEn(nicEn_w),// define
-	.nicEnWr(nicEnWr_w), // define
+	.imem_instruction(inst_in), // instruction input 
+	.dmem_dataOut(d_in),       //  data from DMEM: fill
+	.nic_dataOut(nic_PE_data),//  nic -----> PE DATA
+	.imem_address(pc_out),   // address access with IMEM
+	.dmem_address(addr_out), //address access with DMEM
+	.store_enable(memWrEn),// store enable
+	.mem_enable(memEn), // memory enable
+	.nicEn(nicEn_w),//  nicEnable
+	.nicEnWr(nicEnWr_w), // nicWrEnable
 	.adder_nic(adder_nic_w), // define
-	.nic_dataIn(PE_nic_data)//define // PE----->nic DATA
+	.nic_dataIn(PE_nic_data),//define // PE----->nic DATA
+	.dmem_dataIn(d_out)    // data to DMEM: dump
 	);
 
 endmodule 
