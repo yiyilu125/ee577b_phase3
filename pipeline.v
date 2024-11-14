@@ -19,7 +19,7 @@ module pipeline #(
 	
 	output nicEn, // nicEnable signal
 	output nicEnWr,
-	output adder_nic
+	output [1:0] adder_nic
 );
     /*stage 1: IF reg, wire*/
     //stage register
