@@ -53,7 +53,7 @@ wire [1:0]adder_nic_w;
 
 	pipeline  pp1 (
 	.clk(clk), 
-	.reset(reset),
+	.rst(reset),
 	.imem_instruction(inst_in), // instruction input 
 	.dmem_dataOut(d_in),       //  data from DMEM: fill
 	.nic_dataOut(nic_PE_data),//  nic -----> PE DATA
