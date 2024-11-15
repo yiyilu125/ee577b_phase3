@@ -148,7 +148,6 @@ always @(*) begin
 			
 			if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==1)
 			begin
-				$display("NIC CHECK");
 				nicEn=1;
 				nicEnWr=0;
 				adder_nic=2'b01;
