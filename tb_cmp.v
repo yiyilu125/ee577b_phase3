@@ -1,5 +1,6 @@
 `timescale 1ns/10ps
-
+`define clk_cycle 4
+`define path "ee577b_phase3/test_cases/"
 // Include Memory Files
 `include "./include/dmem.v"
 `include "./include/imem.v"
@@ -562,41 +563,43 @@ initial begin
     $finish;
 end
 	
+
+
 initial
 begin
-	$readmemh("imem_core0.fill", IM_node0.MEM);  // loading instruction memory into node0
-	$readmemh("imem_core1.fill", IM_node1.MEM);  // loading instruction memory into node1
-	$readmemh("imem_core2.fill", IM_node2.MEM);  // loading instruction memory into node2
-	$readmemh("imem_core3.fill", IM_node3.MEM);  // loading instruction memory into node3
-	$readmemh("imem_core4.fill", IM_node4.MEM);  // loading instruction memory into node4
-	$readmemh("imem_core5.fill", IM_node5.MEM);  // loading instruction memory into node5
-	$readmemh("imem_core6.fill", IM_node6.MEM);  // loading instruction memory into node6
-	$readmemh("imem_core7.fill", IM_node7.MEM);  // loading instruction memory into node7
-	$readmemh("imem_core8.fill", IM_node8.MEM);  // loading instruction memory into node8
-	$readmemh("imem_core9.fill", IM_node9.MEM);  // loading instruction memory into node9
-	$readmemh("imem_core10.fill", IM_node10.MEM); // loading instruction memory into node10
-	$readmemh("imem_core11.fill", IM_node11.MEM); // loading instruction memory into node11
-	$readmemh("imem_core12.fill", IM_node12.MEM); // loading instruction memory into node12
-	$readmemh("imem_core13.fill", IM_node13.MEM); // loading instruction memory into node13
-	$readmemh("imem_core14.fill", IM_node14.MEM); // loading instruction memory into node14
-	$readmemh("imem_core15.fill", IM_node15.MEM); // loading instruction memory into node15
+	$readmemh({`path, "imem_core1.fill"}, IM_node0.MEM);  // loading instruction memory into node0
+	// $readmemh("./test_cases/imem_core1.fill", IM_node1.MEM);  // loading instruction memory into node1
+	// $readmemh("./test_cases/imem_core2.fill", IM_node2.MEM);  // loading instruction memory into node2
+	// $readmemh("./test_cases/imem_core3.fill", IM_node3.MEM);  // loading instruction memory into node3
+	// $readmemh("./test_cases/imem_core4.fill", IM_node4.MEM);  // loading instruction memory into node4
+	// $readmemh("./test_cases/imem_core5.fill", IM_node5.MEM);  // loading instruction memory into node5
+	// $readmemh("./test_cases/imem_core6.fill", IM_node6.MEM);  // loading instruction memory into node6
+	// $readmemh("./test_cases/imem_core7.fill", IM_node7.MEM);  // loading instruction memory into node7
+	// $readmemh("./test_cases/imem_core8.fill", IM_node8.MEM);  // loading instruction memory into node8
+	// $readmemh("./test_cases/imem_core9.fill", IM_node9.MEM);  // loading instruction memory into node9
+	// $readmemh("./test_cases/imem_core10.fill", IM_node10.MEM); // loading instruction memory into node10
+	// $readmemh("./test_cases/imem_core11.fill", IM_node11.MEM); // loading instruction memory into node11
+	// $readmemh("./test_cases/imem_core12.fill", IM_node12.MEM); // loading instruction memory into node12
+	// $readmemh("./test_cases/imem_core13.fill", IM_node13.MEM); // loading instruction memory into node13
+	// $readmemh("./test_cases/imem_core14.fill", IM_node14.MEM); // loading instruction memory into node14
+	// $readmemh("./test_cases/imem_core15.fill", IM_node15.MEM); // loading instruction memory into node15
 
     $readmemh("dmem_core0.fill", DM_node0.MEM);  // loading data memory into node0
-    $readmemh("dmem_core1.fill", DM_node1.MEM);  // loading data memory into node1
-    $readmemh("dmem_core2.fill", DM_node2.MEM);  // loading data memory into node2
-    $readmemh("dmem_core3.fill", DM_node3.MEM);  // loading data memory into node3
-    $readmemh("dmem_core4.fill", DM_node4.MEM);  // loading data memory into node4
-    $readmemh("dmem_core5.fill", DM_node5.MEM);  // loading data memory into node5
-    $readmemh("dmem_core6.fill", DM_node6.MEM);  // loading data memory into node6
-    $readmemh("dmem_core7.fill", DM_node7.MEM);  // loading data memory into node7
-    $readmemh("dmem_core8.fill", DM_node8.MEM);  // loading data memory into node8
-    $readmemh("dmem_core9.fill", DM_node9.MEM);  // loading data memory into node9
-    $readmemh("dmem_core10.fill", DM_node10.MEM); // loading data memory into node10
-    $readmemh("dmem_core11.fill", DM_node11.MEM); // loading data memory into node11
-    $readmemh("dmem_core12.fill", DM_node12.MEM); // loading data memory into node12
-    $readmemh("dmem_core13.fill", DM_node13.MEM); // loading data memory into node13
-    $readmemh("dmem_core14.fill", DM_node14.MEM); // loading data memory into node14
-    $readmemh("dmem_core15.fill", DM_node15.MEM); // loading data memory into node15
+    // $readmemh("./test_cases/dmem_core1.fill", DM_node1.MEM);  // loading data memory into node1
+    // $readmemh("./test_cases/dmem_core2.fill", DM_node2.MEM);  // loading data memory into node2
+    // $readmemh("./test_cases/dmem_core3.fill", DM_node3.MEM);  // loading data memory into node3
+    // $readmemh("./test_cases/dmem_core4.fill", DM_node4.MEM);  // loading data memory into node4
+    // $readmemh("./test_cases/dmem_core5.fill", DM_node5.MEM);  // loading data memory into node5
+    // $readmemh("./test_cases/dmem_core6.fill", DM_node6.MEM);  // loading data memory into node6
+    // $readmemh("./test_cases/dmem_core7.fill", DM_node7.MEM);  // loading data memory into node7
+    // $readmemh("./test_cases/dmem_core8.fill", DM_node8.MEM);  // loading data memory into node8
+    // $readmemh("./test_cases/dmem_core9.fill", DM_node9.MEM);  // loading data memory into node9
+    // $readmemh("./test_cases/dmem_core10.fill", DM_node10.MEM); // loading data memory into node10
+    // $readmemh("./test_cases/dmem_core11.fill", DM_node11.MEM); // loading data memory into node11
+    // $readmemh("./test_cases/dmem_core12.fill", DM_node12.MEM); // loading data memory into node12
+    // $readmemh("./test_cases/dmem_core13.fill", DM_node13.MEM); // loading data memory into node13
+    // $readmemh("./test_cases/dmem_core14.fill", DM_node14.MEM); // loading data memory into node14
+    // $readmemh("./test_cases/dmem_core15.fill", DM_node15.MEM); // loading data memory into node15
 
 	
 	CLK <= 0;				// initialize Clock
