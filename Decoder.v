@@ -154,11 +154,11 @@ always @(*) begin
 				load_signal=0;
 				load_nic=1;
 			end
-			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==0)
+			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==0)
 			begin
 				nicEn=1;
 				nicEnWr=0;
-				adder_nic=2'b10;
+				adder_nic=2'b00;
 				load_signal=0;
 				load_nic=1;
 			end
