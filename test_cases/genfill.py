@@ -30,7 +30,8 @@ for src in src_values:
     filename = path + os.sep + f"dmem_core{src}.fill"
     with open(filename, "w") as file:
         for des in range(16):  # Loop over destination values from 0 to 15
-            dmem_data = generate_dmem(src, des)
-            # Write the result in hexadecimal format for readability
-            file.write(f"{dmem_data:016x}  // c{src} to c{des}\n")
+            if (src != des) :
+                dmem_data = generate_dmem(src, des)
+                # Write the result in hexadecimal format for readability
+                file.write(f"{dmem_data:016x}  // c{src} to c{des}\n")
     print(f"Results written to {filename}")
