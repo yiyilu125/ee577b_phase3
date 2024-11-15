@@ -159,7 +159,7 @@ always @(*) begin
 			begin
 				nicEn=1;
 				nicEnWr=0;
-				adder_nic=2'b00;
+				adder_nic=2'b10;
 				load_signal=0;
 				load_nic=1;
 			end
@@ -209,7 +209,7 @@ always @(*) begin
 			begin
 				nicEn=1;
 				nicEnWr=1;
-				adder_nic=2'b11;
+				adder_nic=2'b10;
 				load_signal=0;
 				load_nic=0;
 			end
