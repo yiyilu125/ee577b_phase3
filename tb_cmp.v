@@ -1,6 +1,7 @@
 `timescale 1ns/10ps
 `define clk_cycle 4
 `define path "ee577b_phase3/test_cases/"
+
 // Include Memory Files
 `include "./include/dmem.v"
 `include "./include/imem.v"
@@ -556,7 +557,7 @@ cardinal_cmp CMP(
     .memE_33     (node15_memEn   )
 );
 	
-always #(clk_cycle / 2) CLK <= ~CLK;	
+always #(`clk_cycle / 2) CLK <= ~CLK;	
 
 initial begin
     #50000
@@ -584,7 +585,7 @@ begin
 	// $readmemh("./test_cases/imem_core14.fill", IM_node14.MEM); // loading instruction memory into node14
 	// $readmemh("./test_cases/imem_core15.fill", IM_node15.MEM); // loading instruction memory into node15
 
-    $readmemh("dmem_core0.fill", DM_node0.MEM);  // loading data memory into node0
+    $readmemh({`path, "dmem_core1.fill"}, DM_node0.MEM);  // loading data memory into node0
     // $readmemh("./test_cases/dmem_core1.fill", DM_node1.MEM);  // loading data memory into node1
     // $readmemh("./test_cases/dmem_core2.fill", DM_node2.MEM);  // loading data memory into node2
     // $readmemh("./test_cases/dmem_core3.fill", DM_node3.MEM);  // loading data memory into node3
