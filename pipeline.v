@@ -169,6 +169,7 @@ module pipeline #(
     //communication to the dmem
     assign dmem_dataIn = mux_rA_data;
     assign dmem_address = datamem_address;
+    assign nic_dataIn = mux_rA_data;
 
     //Branch module
     branch branch_uut(
