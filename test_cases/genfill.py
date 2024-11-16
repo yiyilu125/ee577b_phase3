@@ -1,4 +1,5 @@
 import os
+import shutil
 
 # Define the constant path
 FILE_PATH = r"ee577b_phase3/test_cases"
@@ -21,25 +22,42 @@ def generater_data(src, des):
 
     return dmem_data
 
+
+def copy_imem_files(path):
+    # Specify the source file
+    source_file = os.path.join(path, "imem_core0.fill")
+    
+    # Loop to copy the file 16 times
+    for i in range(16):
+        # Define the new file name, appending the copy number to the original file name
+        new_file = os.path.join(path, f"imem_core{i}.fill")
+        # Copy the file
+        shutil.copy(source_file, new_file)
+
+    print("**all 16 imem files generated**")
+
+
 # Function to generate instructions
 def generater_inst(instruction):
     parts = instruction.lower().split()  # Convert entire input to lowercase
     opcode = parts[0]
 
     if opcode == "nop":
-        return "32'hF0000000"
+        return "F0000000"
 
     if len(parts) != 3:
         raise ValueError(f"Instruction format error for: {instruction}")
 
-    reg_x = int(parts[1][1:])  # Extract x from Rx
+    reg_x_part = parts[1]
     y = int(parts[2])
 
-    if reg_x != "nic":
-        reg_x = int(reg_x[1:])  # Extract x from Rx
+    if reg_x_part == "nic":
+        reg_x = -1  # Special case to indicate "nic"
+    else:
+        reg_x = int(reg_x_part[1:])  # Extract x from Rx
+
         if reg_x < 0 or reg_x > 31:
-            raise ValueError(f"Register index out of range (0-31): {reg_x}")
-        
+            raise ValueError(f"Register index out of range (0-31): {reg_x}")        
     if y < 0 or y > 31:
         raise ValueError(f"Immediate value out of range (0-31): {y}")
 
@@ -55,7 +73,7 @@ def generater_inst(instruction):
     if opcode in {"bez", "bnez"}:
         y *= 4
 
-    if reg_x == "nic":
+    if reg_x_part == "nic":
         binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000011{y:013b}"
     else:
         binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000{y:016b}"
@@ -80,19 +98,34 @@ def generate_dmem_files():
 def main():
     while True:
         print("\nChoose an option:")
-        print("1. Generate DMEM files")
-        print("2. Generate IMEN files")
+        print("1. Generate DMEM files (each node sends to all other nodes)")
+        print("2. Generate IMEN files (type in instructions and generate)")
         print("3. Exit\n")
-        choice = input("  >> ").strip().lower()  # Lowercase for consistent input
+        choice = input(" main >> ").strip().lower()  # Lowercase for consistent input
 
         if choice == "1":
             generate_dmem_files()
         elif choice == "2":
             output_file = FILE_PATH + os.sep + "imem_test.fill"
+            core = input("which to write ('test', 'all', or a 0-15 decimal number)\n core >> ").strip().lower()
+
+            if core == "test":
+                output_file = FILE_PATH + os.sep + "imem_test.fill"
+            elif core == "all":
+                output_file = FILE_PATH + os.sep + "imem_core0.fill"
+            elif core.isdigit() and 0 <= int(core) <= 15:
+                core_index = int(core)
+                output_file = FILE_PATH + os.sep + f"imem_core{core_index}.fill"
+            else:
+                print("Invalid input. Please enter 'test', 'all', or a decimal number between 0 and 15.")
+                continue
+
             with open(output_file, "w") as file:
                 while True:
-                    user_input = input("Enter Inst: ('exit' to go back)\n  >> ").strip()
-                    if user_input.lower() == "exit":
+                    user_input = input("Enter Inst: ('finish' to go back)\n imem >> ").strip()
+                    if user_input.lower() == "finish":
+                        if core == "all":
+                            copy_imem_files(FILE_PATH)
                         print(f"Instructions written to {output_file}. Returning to main menu.")
                         break
                     try:
@@ -102,7 +135,6 @@ def main():
                     except ValueError as e:
                         print(e)
         elif choice == "3":
-            print("Exiting the program.")
             break
         else:
             print("Invalid choice. Please try again.")
