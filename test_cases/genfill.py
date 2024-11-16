@@ -35,8 +35,11 @@ def generater_inst(instruction):
     reg_x = int(parts[1][1:])  # Extract x from Rx
     y = int(parts[2])
 
-    if reg_x < 0 or reg_x > 31:
-        raise ValueError(f"Register index out of range (0-31): R{reg_x}")
+    if reg_x != "nic":
+        reg_x = int(reg_x[1:])  # Extract x from Rx
+        if reg_x < 0 or reg_x > 31:
+            raise ValueError(f"Register index out of range (0-31): {reg_x}")
+        
     if y < 0 or y > 31:
         raise ValueError(f"Immediate value out of range (0-31): {y}")
 
@@ -49,8 +52,13 @@ def generater_inst(instruction):
 
     if opcode not in opcode_mapping:
         raise ValueError(f"Unsupported opcode: {opcode}")
+    if opcode in {"bez", "bnez"}:
+        y *= 4
 
-    binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000{y:05b}"
+    if reg_x == "nic":
+        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000011{y:013b}"
+    else:
+        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000{y:016b}"
     hex_value = f"{int(binary_representation, 2):08X}"
 
     return hex_value
@@ -73,9 +81,9 @@ def main():
     while True:
         print("\nChoose an option:")
         print("1. Generate DMEM files")
-        print("2. Enter instructions and generate hex")
-        print("3. Exit")
-        choice = input("Enter your choice: ").strip().lower()  # Lowercase for consistent input
+        print("2. Generate IMEN files")
+        print("3. Exit\n")
+        choice = input("  >> ").strip().lower()  # Lowercase for consistent input
 
         if choice == "1":
             generate_dmem_files()
@@ -83,9 +91,9 @@ def main():
             output_file = FILE_PATH + os.sep + "imem_test.fill"
             with open(output_file, "w") as file:
                 while True:
-                    user_input = input("Enter instruction (or 'exit' to go back): ").strip()
+                    user_input = input("Enter Inst: ('exit' to go back)\n  >> ").strip()
                     if user_input.lower() == "exit":
-                        print(f"Hex instructions written to {output_file}. Returning to main menu.")
+                        print(f"Instructions written to {output_file}. Returning to main menu.")
                         break
                     try:
                         hex_instruction = generater_inst(user_input)
