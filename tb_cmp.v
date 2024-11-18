@@ -572,22 +572,39 @@ module tb_cmp;
 
 	initial
 	begin
-		$readmemh({`path, "imem_core0.fill" }, IM_node0.MEM );  // loading instruction memory into node0
-		$readmemh({`path, "imem_core1.fill" }, IM_node1.MEM );  // loading instruction memory into node1
-		$readmemh({`path, "imem_core2.fill" }, IM_node2.MEM );  // loading instruction memory into node2
-		$readmemh({`path, "imem_core3.fill" }, IM_node3.MEM );  // loading instruction memory into node3
-		$readmemh({`path, "imem_core4.fill" }, IM_node4.MEM );  // loading instruction memory into node4
-		$readmemh({`path, "imem_core5.fill" }, IM_node5.MEM );  // loading instruction memory into node5
-		$readmemh({`path, "imem_core6.fill" }, IM_node6.MEM );  // loading instruction memory into node6
-		$readmemh({`path, "imem_core7.fill" }, IM_node7.MEM );  // loading instruction memory into node7
-		$readmemh({`path, "imem_core8.fill" }, IM_node8.MEM );  // loading instruction memory into node8
-		$readmemh({`path, "imem_core9.fill" }, IM_node9.MEM );  // loading instruction memory into node9
-		$readmemh({`path, "imem_core10.fill"}, IM_node10.MEM); // loading instruction memory into node10
-		$readmemh({`path, "imem_core11.fill"}, IM_node11.MEM); // loading instruction memory into node11
-		$readmemh({`path, "imem_core12.fill"}, IM_node12.MEM); // loading instruction memory into node12
-		$readmemh({`path, "imem_core13.fill"}, IM_node13.MEM); // loading instruction memory into node13
-		$readmemh({`path, "imem_core14.fill"}, IM_node14.MEM); // loading instruction memory into node14
-		$readmemh({`path, "imem_core15.fill"}, IM_node15.MEM); // loading instruction memory into node15
+		$readmemh({`path, "imem_0.0.fill"}, IM_node0.MEM );  // loading instruction memory into node0
+		$readmemh({`path, "imem_0.1.fill"}, IM_node1.MEM );  // loading instruction memory into node1
+		$readmemh({`path, "imem_0.2.fill"}, IM_node2.MEM );  // loading instruction memory into node2
+		$readmemh({`path, "imem_0.3.fill"}, IM_node3.MEM );  // loading instruction memory into node3
+		$readmemh({`path, "imem_0.0.fill"}, IM_node4.MEM );  // loading instruction memory into node4
+		$readmemh({`path, "imem_0.1.fill"}, IM_node5.MEM );  // loading instruction memory into node5
+		$readmemh({`path, "imem_0.2.fill"}, IM_node6.MEM );  // loading instruction memory into node6
+		$readmemh({`path, "imem_0.3.fill"}, IM_node7.MEM );  // loading instruction memory into node7
+		$readmemh({`path, "imem_0.0.fill"}, IM_node8.MEM );  // loading instruction memory into node8
+		$readmemh({`path, "imem_0.1.fill"}, IM_node9.MEM );  // loading instruction memory into node9
+		$readmemh({`path, "imem_0.2.fill"}, IM_node10.MEM); // loading instruction memory into node10
+		$readmemh({`path, "imem_0.3.fill"}, IM_node11.MEM); // loading instruction memory into node11
+		$readmemh({`path, "imem_0.0.fill"}, IM_node12.MEM); // loading instruction memory into node12
+		$readmemh({`path, "imem_0.1.fill"}, IM_node13.MEM); // loading instruction memory into node13
+		$readmemh({`path, "imem_0.2.fill"}, IM_node14.MEM); // loading instruction memory into node14
+		$readmemh({`path, "imem_0.3.fill"}, IM_node15.MEM); // loading instruction memory into node15
+
+		// $readmemh({`path, "imem_core0.fill" }, IM_node0.MEM );  // loading instruction memory into node0
+		// $readmemh({`path, "imem_core1.fill" }, IM_node1.MEM );  // loading instruction memory into node1
+		// $readmemh({`path, "imem_core2.fill" }, IM_node2.MEM );  // loading instruction memory into node2
+		// $readmemh({`path, "imem_core3.fill" }, IM_node3.MEM );  // loading instruction memory into node3
+		// $readmemh({`path, "imem_core4.fill" }, IM_node4.MEM );  // loading instruction memory into node4
+		// $readmemh({`path, "imem_core5.fill" }, IM_node5.MEM );  // loading instruction memory into node5
+		// $readmemh({`path, "imem_core6.fill" }, IM_node6.MEM );  // loading instruction memory into node6
+		// $readmemh({`path, "imem_core7.fill" }, IM_node7.MEM );  // loading instruction memory into node7
+		// $readmemh({`path, "imem_core8.fill" }, IM_node8.MEM );  // loading instruction memory into node8
+		// $readmemh({`path, "imem_core9.fill" }, IM_node9.MEM );  // loading instruction memory into node9
+		// $readmemh({`path, "imem_core10.fill"}, IM_node10.MEM); // loading instruction memory into node10
+		// $readmemh({`path, "imem_core11.fill"}, IM_node11.MEM); // loading instruction memory into node11
+		// $readmemh({`path, "imem_core12.fill"}, IM_node12.MEM); // loading instruction memory into node12
+		// $readmemh({`path, "imem_core13.fill"}, IM_node13.MEM); // loading instruction memory into node13
+		// $readmemh({`path, "imem_core14.fill"}, IM_node14.MEM); // loading instruction memory into node14
+		// $readmemh({`path, "imem_core15.fill"}, IM_node15.MEM); // loading instruction memory into node15
 
 		$readmemh({`path, "dmem_core0.fill" }, DM_node0.MEM );  // loading data memory into node0
 		$readmemh({`path, "dmem_core1.fill" }, DM_node1.MEM );  // loading data memory into node1

@@ -28,7 +28,7 @@ def copy_imem_files(path):
     source_file = os.path.join(path, "imem_core0.fill")
     
     # Loop to copy the file 16 times
-    for i in range(16):
+    for i in range(1,16):
         # Define the new file name, appending the copy number to the original file name
         new_file = os.path.join(path, f"imem_core{i}.fill")
         # Copy the file
@@ -124,16 +124,16 @@ def main():
                 while True:
                     user_input = input("Enter Inst: ('finish' to go back)\n imem >> ").strip()
                     if user_input.lower() == "finish":
-                        if core == "all":
-                            copy_imem_files(FILE_PATH)
                         print(f"Instructions written to {output_file}. Returning to main menu.")
                         break
                     try:
                         hex_instruction = generater_inst(user_input)
-                        print(f"{hex_instruction}  // {user_input.upper()}")
-                        file.write(f"{user_input} -> {hex_instruction}\n")
+                        print(f"{hex_instruction}    // {user_input.upper()}")
+                        file.write(f"{hex_instruction}    // {user_input.upper()}\n")
                     except ValueError as e:
                         print(e)
+            if core == "all":
+                copy_imem_files(FILE_PATH)
         elif choice == "3":
             break
         else:
