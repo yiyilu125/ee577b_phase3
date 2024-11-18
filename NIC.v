@@ -121,7 +121,12 @@ module nic(
             net_do = output_channel_buffer;  
             net_so = 1'b1;                       
         end 
-	if(!net_ro)
+	else if(!net_ro)
+		begin
+			net_do=0;
+			net_so=0;
+		end
+	else 
 		begin
 			net_do=0;
 			net_so=0;
