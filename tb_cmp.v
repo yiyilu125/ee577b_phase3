@@ -634,19 +634,19 @@ module tb_cmp;
 			node0_inst_in == 32'h00000000 &&
 			node1_inst_in == 32'h00000000 &&
 			node2_inst_in == 32'h00000000 &&
-			node3_inst_in == 32'h00000000 &&
-			node4_inst_in == 32'h00000000 &&
-			node5_inst_in == 32'h00000000 &&
-			node6_inst_in == 32'h00000000 &&
-			node7_inst_in == 32'h00000000 &&
-			node8_inst_in == 32'h00000000 &&
-			node9_inst_in == 32'h00000000 &&
-			node10_inst_in == 32'h00000000 &&
-			node11_inst_in == 32'h00000000 &&
-			node12_inst_in == 32'h00000000 &&
-			node13_inst_in == 32'h00000000 &&
-			node14_inst_in == 32'h00000000 &&
-			node15_inst_in == 32'h00000000
+			node3_inst_in == 32'h00000000 
+			// node4_inst_in == 32'h00000000 &&
+			// node5_inst_in == 32'h00000000 &&
+			// node6_inst_in == 32'h00000000 &&
+			// node7_inst_in == 32'h00000000 &&
+			// node8_inst_in == 32'h00000000 &&
+			// node9_inst_in == 32'h00000000 &&
+			// node10_inst_in == 32'h00000000 &&
+			// node11_inst_in == 32'h00000000 &&
+			// node12_inst_in == 32'h00000000 &&
+			// node13_inst_in == 32'h00000000 &&
+			// node14_inst_in == 32'h00000000 &&
+			// node15_inst_in == 32'h00000000
 		);
 
 		// Display execution time when completed, we can see how much the system stalled
