@@ -18,9 +18,6 @@ module tb_cmp;
 	wire [0:31] node0_addr_out;
 	wire [0:63] node0_d_out, node0_d_in;
 	wire node0_memEn, node0_memWrEn;
-	wire [0:1] node0_addr_nic;
-	wire [0:63] node0_din_nic, node0_dout_nic;
-	wire node0_nicEn, node0_nicWrEn;
 
 	// Node 1
 	wire [0:31] node1_pc_out;
@@ -28,9 +25,6 @@ module tb_cmp;
 	wire [0:31] node1_addr_out;
 	wire [0:63] node1_d_out, node1_d_in;
 	wire node1_memEn, node1_memWrEn;
-	wire [0:1] node1_addr_nic;
-	wire [0:63] node1_din_nic, node1_dout_nic;
-	wire node1_nicEn, node1_nicWrEn;
 
 	// Node 2
 	wire [0:31] node2_pc_out;
@@ -38,9 +32,6 @@ module tb_cmp;
 	wire [0:31] node2_addr_out;
 	wire [0:63] node2_d_out, node2_d_in;
 	wire node2_memEn, node2_memWrEn;
-	wire [0:1] node2_addr_nic;
-	wire [0:63] node2_din_nic, node2_dout_nic;
-	wire node2_nicEn, node2_nicWrEn;
 
 	// Node 3
 	wire [0:31] node3_pc_out;
@@ -48,9 +39,6 @@ module tb_cmp;
 	wire [0:31] node3_addr_out;
 	wire [0:63] node3_d_out, node3_d_in;
 	wire node3_memEn, node3_memWrEn;
-	wire [0:1] node3_addr_nic;
-	wire [0:63] node3_din_nic, node3_dout_nic;
-	wire node3_nicEn, node3_nicWrEn;
 
 	// Node 4
 	wire [0:31] node4_pc_out;
@@ -58,9 +46,6 @@ module tb_cmp;
 	wire [0:31] node4_addr_out;
 	wire [0:63] node4_d_out, node4_d_in;
 	wire node4_memEn, node4_memWrEn;
-	wire [0:1] node4_addr_nic;
-	wire [0:63] node4_din_nic, node4_dout_nic;
-	wire node4_nicEn, node4_nicWrEn;
 
 	// Node 5
 	wire [0:31] node5_pc_out;
@@ -68,9 +53,6 @@ module tb_cmp;
 	wire [0:31] node5_addr_out;
 	wire [0:63] node5_d_out, node5_d_in;
 	wire node5_memEn, node5_memWrEn;
-	wire [0:1] node5_addr_nic;
-	wire [0:63] node5_din_nic, node5_dout_nic;
-	wire node5_nicEn, node5_nicWrEn;
 
 	// Node 6
 	wire [0:31] node6_pc_out;
@@ -78,9 +60,6 @@ module tb_cmp;
 	wire [0:31] node6_addr_out;
 	wire [0:63] node6_d_out, node6_d_in;
 	wire node6_memEn, node6_memWrEn;
-	wire [0:1] node6_addr_nic;
-	wire [0:63] node6_din_nic, node6_dout_nic;
-	wire node6_nicEn, node6_nicWrEn;
 
 	// Node 7
 	wire [0:31] node7_pc_out;
@@ -88,9 +67,6 @@ module tb_cmp;
 	wire [0:31] node7_addr_out;
 	wire [0:63] node7_d_out, node7_d_in;
 	wire node7_memEn, node7_memWrEn;
-	wire [0:1] node7_addr_nic;
-	wire [0:63] node7_din_nic, node7_dout_nic;
-	wire node7_nicEn, node7_nicWrEn;
 
 	// Node 8
 	wire [0:31] node8_pc_out;
@@ -98,9 +74,6 @@ module tb_cmp;
 	wire [0:31] node8_addr_out;
 	wire [0:63] node8_d_out, node8_d_in;
 	wire node8_memEn, node8_memWrEn;
-	wire [0:1] node8_addr_nic;
-	wire [0:63] node8_din_nic, node8_dout_nic;
-	wire node8_nicEn, node8_nicWrEn;
 
 	// Node 9
 	wire [0:31] node9_pc_out;
@@ -108,9 +81,6 @@ module tb_cmp;
 	wire [0:31] node9_addr_out;
 	wire [0:63] node9_d_out, node9_d_in;
 	wire node9_memEn, node9_memWrEn;
-	wire [0:1] node9_addr_nic;
-	wire [0:63] node9_din_nic, node9_dout_nic;
-	wire node9_nicEn, node9_nicWrEn;
 
 	// Node 10
 	wire [0:31] node10_pc_out;
@@ -118,9 +88,6 @@ module tb_cmp;
 	wire [0:31] node10_addr_out;
 	wire [0:63] node10_d_out, node10_d_in;
 	wire node10_memEn, node10_memWrEn;
-	wire [0:1] node10_addr_nic;
-	wire [0:63] node10_din_nic, node10_dout_nic;
-	wire node10_nicEn, node10_nicWrEn;
 
 	// Node 11
 	wire [0:31] node11_pc_out;
@@ -128,9 +95,6 @@ module tb_cmp;
 	wire [0:31] node11_addr_out;
 	wire [0:63] node11_d_out, node11_d_in;
 	wire node11_memEn, node11_memWrEn;
-	wire [0:1] node11_addr_nic;
-	wire [0:63] node11_din_nic, node11_dout_nic;
-	wire node11_nicEn, node11_nicWrEn;
 
 	// Node 12
 	wire [0:31] node12_pc_out;
@@ -138,9 +102,6 @@ module tb_cmp;
 	wire [0:31] node12_addr_out;
 	wire [0:63] node12_d_out, node12_d_in;
 	wire node12_memEn, node12_memWrEn;
-	wire [0:1] node12_addr_nic;
-	wire [0:63] node12_din_nic, node12_dout_nic;
-	wire node12_nicEn, node12_nicWrEn;
 
 	// Node 13
 	wire [0:31] node13_pc_out;
@@ -148,9 +109,6 @@ module tb_cmp;
 	wire [0:31] node13_addr_out;
 	wire [0:63] node13_d_out, node13_d_in;
 	wire node13_memEn, node13_memWrEn;
-	wire [0:1] node13_addr_nic;
-	wire [0:63] node13_din_nic, node13_dout_nic;
-	wire node13_nicEn, node13_nicWrEn;
 
 	// Node 14
 	wire [0:31] node14_pc_out;
@@ -158,9 +116,6 @@ module tb_cmp;
 	wire [0:31] node14_addr_out;
 	wire [0:63] node14_d_out, node14_d_in;
 	wire node14_memEn, node14_memWrEn;
-	wire [0:1] node14_addr_nic;
-	wire [0:63] node14_din_nic, node14_dout_nic;
-	wire node14_nicEn, node14_nicWrEn;
 
 	// Node 15
 	wire [0:31] node15_pc_out;
@@ -168,9 +123,6 @@ module tb_cmp;
 	wire [0:31] node15_addr_out;
 	wire [0:63] node15_d_out, node15_d_in;
 	wire node15_memEn, node15_memWrEn;
-	wire [0:1] node15_addr_nic;
-	wire [0:63] node15_din_nic, node15_dout_nic;
-	wire node15_nicEn, node15_nicWrEn;
 
 	integer dmem0_dump_file;      // Channel Descriptor for DMEM0 final dump
 	integer dmem1_dump_file;      
