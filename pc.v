@@ -11,8 +11,8 @@ module program_counter (
             ins_address <= 32'b0;
         end else if (branch_en) begin
             ins_address <= branch_target;
-        end else begin
-            ins_address <= ins_address + 4;
+        end else if (ins_address < 32'hFFFF_FFFF) begin
+                ins_address <= ins_address + 4;
         end
     end
 

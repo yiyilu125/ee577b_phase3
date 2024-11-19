@@ -13,110 +13,188 @@ bnez r1 10
 sd r30 nic2
 ld r2 nic1
 bez r2 13
-sd r5 nic0
+ld r5 nic0
 ld r2 nic1
 bez r2 16
-sd r15 nic0
+ld r15 nic0
 ld r2 nic1
 bez r2 19
-sd r25 nic0
-sd r5 5
-sd r15 6
-sd r25 7
+ld r25 nic0
+sd r5 15
+sd r15 16
+sd r25 17
 ld r10 3
-ld r20 4
-ld r30 5
-ld r21 6
+ld r11 4
+ld r12 5
+ld r13 6
 ld r1 nic3
 bnez r1 29
 sd r10 nic2
 ld r1 nic3
 bnez r1 31
-sd r20 nic2
+sd r11 nic2
 ld r1 nic3
 bnez r1 35
-sd r30 nic2
+sd r12 nic2
 ld r1 nic3
 bnez r1 38
-sd r21 nic2
+sd r13 nic2
 ld r2 nic1
 bez r2 41
-sd r5 nic0
+ld r5 nic0
 ld r2 nic1
 bez r2 44
-sd r15 nic0
+ld r15 nic0
 ld r2 nic1
 bez r2 47
-sd r25 nic0
+ld r25 nic0
 ld r2 nic1
 bez r2 50
-sd r31 nic0
-sd r5 8
-sd r15 9
-sd r25 10
-sd r31 11
+ld r30 nic0
+sd r5 18
+sd r15 19
+sd r25 20
+sd r30 21
 ld r10 7
-ld r20 8
-ld r30 9
-ld r21 10
+ld r11 8
+ld r12 9
+ld r13 10
 ld r1 nic3
 bnez r1 61
 sd r10 nic2
 ld r1 nic3
 bnez r1 64
-sd r20 nic2
+sd r11 nic2
 ld r1 nic3
 bnez r1 67
-sd r30 nic2
+sd r12 nic2
 ld r1 nic3
 bnez r1 70
-sd r21 nic2
+sd r13 nic2
 ld r2 nic1
 bez r2 73
-sd r5 nic0
+ld r5 nic0
 ld r2 nic1
 bez r2 76
-sd r15 nic0
+ld r15 nic0
 ld r2 nic1
 bez r2 79
-sd r25 nic0
+ld r25 nic0
 ld r2 nic1
 bez r2 82
-sd r31 nic0
-sd r5 12
-sd r15 13
-sd r25 14
-sd r31 15
+ld r30 nic0
+sd r5 22
+sd r15 23
+sd r25 24
+sd r30 25
 ld r10 11
-ld r20 12
-ld r30 13
-ld r21 14
+ld r11 12
+ld r12 13
+ld r13 14
 ld r1 nic3
 bnez r1 93
 sd r10 nic2
 ld r1 nic3
 bnez r1 96
-sd r20 nic2
+sd r11 nic2
 ld r1 nic3
 bnez r1 99
-sd r30 nic2
+sd r12 nic2
 ld r1 nic3
 bnez r1 102
-sd r21 nic2
+sd r13 nic2
 ld r2 nic1
 bez r2 105
-sd r5 nic0
+ld r5 nic0
 ld r2 nic1
 bez r2 108
-sd r15 nic0
+ld r15 nic0
 ld r2 nic1
 bez r2 111
-sd r25 nic0
+ld r25 nic0
 ld r2 nic1
 bez r2 114
-sd r31 nic0
-sd r5 16
-sd r15 17
-sd r25 18
-sd r31 19
+ld r30 nic0
+sd r5 26
+sd r15 27
+sd r25 28
+sd r30 29
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
+NOP
 NOP
