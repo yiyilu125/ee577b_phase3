@@ -49,18 +49,30 @@ def generater_inst(instruction):
         raise ValueError(f"Instruction format error for: {instruction}")
 
     reg_x_part = parts[1]
-    y = int(parts[2])
+    imm_part = parts[2]
 
-    if reg_x_part == "nic":
-        reg_x = -1  # Special case to indicate "nic"
-    else:
+    # Extract register x from Rx
+    if reg_x_part.startswith("r") and reg_x_part[1:].isdigit():
         reg_x = int(reg_x_part[1:])  # Extract x from Rx
-
         if reg_x < 0 or reg_x > 31:
-            raise ValueError(f"Register index out of range (0-31): {reg_x}")        
-    if y < 0 or y > 31:
-        raise ValueError(f"Immediate value out of range (0-31): {y}")
+            raise ValueError(f"Register index out of range (0-31): {reg_x}")
+    else:
+        raise ValueError(f"Invalid register format: {reg_x_part}")
 
+    # Determine the immediate value
+    if imm_part.startswith("nic"):
+        try:
+            y = int(imm_part[3:])  # Extract y value from nic<y>
+        except ValueError:
+            raise ValueError(f"Invalid nic format: {imm_part}")
+    elif imm_part.isdigit():
+        y = int(imm_part)  # Directly use immediate value
+    else:
+        raise ValueError(f"Invalid immediate value format: {imm_part}")
+
+    if (opcode == "sd" or opcode == "ld") and (y < 0 or y > 31):
+        raise ValueError(f"Immediate value out of range (0-31): {y}")
+    
     opcode_mapping = {
         "bez": "100010",
         "bnez": "100011",
@@ -70,13 +82,14 @@ def generater_inst(instruction):
 
     if opcode not in opcode_mapping:
         raise ValueError(f"Unsupported opcode: {opcode}")
+    
     if opcode in {"bez", "bnez"}:
         y *= 4
 
-    if reg_x_part == "nic":
-        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000011{y:013b}"
+    if imm_part.startswith("nic"):
+        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}0000011{y:014b}"
     else:
-        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}00000{y:016b}"
+        binary_representation = f"{opcode_mapping[opcode]}{reg_x:05b}0000000{y:014b}"
     hex_value = f"{int(binary_representation, 2):08X}"
 
     return hex_value
@@ -99,7 +112,7 @@ def main():
     while True:
         print("\nChoose an option:")
         print("1. Generate DMEM files (each node sends to all other nodes)")
-        print("2. Generate IMEN files (type in instructions and generate)")
+        print("2. Generate IMEM files (type in instructions and generate)")
         print("3. Exit\n")
         choice = input(" main >> ").strip().lower()  # Lowercase for consistent input
 
@@ -107,7 +120,7 @@ def main():
             generate_dmem_files()
         elif choice == "2":
             output_file = FILE_PATH + os.sep + "imem_test.fill"
-            core = input("which to write ('test', 'all', or a 0-15 decimal number)\n core >> ").strip().lower()
+            core = input("Which to write ('test', 'all', or a 0-15 decimal number)\n core >> ").strip().lower()
 
             if core == "test":
                 output_file = FILE_PATH + os.sep + "imem_test.fill"
@@ -120,18 +133,46 @@ def main():
                 print("Invalid input. Please enter 'test', 'all', or a decimal number between 0 and 15.")
                 continue
 
-            with open(output_file, "w") as file:
-                while True:
-                    user_input = input("Enter Inst: ('finish' to go back)\n imem >> ").strip()
-                    if user_input.lower() == "finish":
-                        print(f"Instructions written to {output_file}. Returning to main menu.")
-                        break
-                    try:
-                        hex_instruction = generater_inst(user_input)
-                        print(f"{hex_instruction}    // {user_input.upper()}")
-                        file.write(f"{hex_instruction}    // {user_input.upper()}\n")
-                    except ValueError as e:
-                        print(e)
+            print("\nInput method:")
+            print("1. Type instructions manually")
+            print("2. Read instructions from a file\n")
+            input_method = input("Choose input method (1 or 2): ").strip()
+
+            if input_method == "1":
+                # Type instructions manually
+                with open(output_file, "w") as file:
+                    while True:
+                        user_input = input("Enter Inst: ('finish' to go back)\n imem >> ").strip()
+                        if user_input.lower() == "finish":
+                            print(f"Instructions written to {output_file}. Returning to main menu.")
+                            break
+                        try:
+                            hex_instruction = generater_inst(user_input)
+                            print(f"{hex_instruction}    // {user_input.upper()}")
+                            file.write(f"{hex_instruction}    // {user_input.upper()}\n")
+                        except ValueError as e:
+                            print(e)
+            elif input_method == "2":
+                # Read instructions from a file
+                file_path = FILE_PATH + os.sep + "command.txt"
+                try:
+                    with open(file_path, "r") as input_file, open(output_file, "w") as output_file_handle:
+                        for line in input_file:
+                            instruction = line.strip()
+                            if not instruction:
+                                continue
+                            try:
+                                hex_instruction = generater_inst(instruction)
+                                print(f"{hex_instruction}    // {instruction.upper()}")
+                                output_file_handle.write(f"{hex_instruction}    // {instruction.upper()}\n")
+                            except ValueError as e:
+                                print(f"Error in instruction '{instruction}': {e}")
+                    print(f"Instructions from file '{file_path}' written to {output_file}.")
+                except FileNotFoundError:
+                    print(f"File '{file_path}' not found. Please try again.")
+            else:
+                print("Invalid input method. Returning to main menu.")
+
             if core == "all":
                 copy_imem_files(FILE_PATH)
         elif choice == "3":
