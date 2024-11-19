@@ -44,6 +44,8 @@ def generater_inst(instruction):
 
     if opcode == "nop":
         return "F0000000"
+    elif opcode == "0":
+        return "00000000"
 
     if len(parts) != 3:
         raise ValueError(f"Instruction format error for: {instruction}")
@@ -163,8 +165,12 @@ def main():
                                 continue
                             try:
                                 hex_instruction = generater_inst(instruction)
-                                print(f"{hex_instruction}    // {instruction.upper()}")
-                                output_file_handle.write(f"{hex_instruction}    // {instruction.upper()}\n")
+                                if hex_instruction == "00000000":
+                                    print(f"{hex_instruction}")
+                                    output_file_handle.write(f"{hex_instruction}\n")
+                                else:
+                                    print(f"{hex_instruction}    // {instruction.upper()}")
+                                    output_file_handle.write(f"{hex_instruction}    // {instruction.upper()}\n")
                             except ValueError as e:
                                 print(f"Error in instruction '{instruction}': {e}")
                     print(f"Instructions from file '{file_path}' written to {output_file}.")
