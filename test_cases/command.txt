@@ -26,7 +26,7 @@ sd r25 7
 ld r10 3
 ld r20 4
 ld r30 5
-ld r40 6
+ld r31 6
 ld r1 nic3
 bnez r1 29
 sd r10 nic2
@@ -38,7 +38,7 @@ bnez r1 35
 sd r30 nic2
 ld r1 nic3
 bnez r1 38
-sd r40 nic2
+sd r31 nic2
 ld r2 nic1
 bez r2 41
 sd r5 nic0
@@ -58,7 +58,7 @@ sd r32 11
 ld r10 6
 ld r20 7
 ld r30 8
-ld r40 9
+ld r31 9
 ld r1 nic3
 bnez r1 61
 sd r10 nic2
@@ -70,7 +70,7 @@ bnez r1 67
 sd r30 nic2
 ld r1 nic3
 bnez r1 70
-sd r40 nic2
+sd r31 nic2
 ld r2 nic1
 bez r2 73
 sd r5 nic0
@@ -90,7 +90,7 @@ sd r32 15
 ld r10 6
 ld r20 7
 ld r30 8
-ld r40 9
+ld r31 9
 ld r1 nic3
 bnez r1 93
 sd r10 nic2
@@ -102,7 +102,7 @@ bnez r1 99
 sd r30 nic2
 ld r1 nic3
 bnez r1 102
-sd r40 nic2
+sd r31 nic2
 ld r2 nic1
 bez r2 105
 sd r5 nic0
