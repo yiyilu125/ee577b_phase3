@@ -169,7 +169,7 @@ always @(*) begin
 				nicEnWr=0;
 				adder_nic=2'b11;
 				load_signal=0;
-				load_nic=1;
+				load_nic=0;
 			end
 			else 
 			begin
