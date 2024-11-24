@@ -514,7 +514,7 @@
             endcase
 	
         end
-		 else if (opcode == VMULEU) 
+		 else if (opcode == VMULEU) // multiply even
 		 begin
             case (ww)
                 2'b00: 
@@ -537,7 +537,7 @@
             endcase
         end
 		
-		 else if (opcode == VMULOU) 
+		 else if (opcode == VMULOU) // nultiply odd
 		 begin
             case (ww)
                 2'b00: 
@@ -559,7 +559,7 @@
                 default: result = 64'b0; 
             endcase
         end
-		else if (opcode == VSLL) 
+		else if (opcode == VSLL) // shift Left
 		begin
             case (ww)
                 2'b00: 
@@ -592,7 +592,7 @@
                 default: result = 64'b0; // Default case to avoid latches
             endcase
         end
-		else if (opcode == VSRL) 
+		else if (opcode == VSRL) //shift Right
 		begin
             case (ww)
                 2'b00: 
@@ -626,7 +626,7 @@
             endcase
         end
 		
-		else if (opcode == VSRA)
+		else if (opcode == VSRA)  // Arithmatic Shift
 		begin
 			case (ww)
 				2'b00:
@@ -660,7 +660,7 @@
 			endcase
 		end
 		
-		else if (opcode == VRTTTH)
+		else if (opcode == VRTTTH)  // Rotate
 		begin
 			case (ww)
 				2'b00:
@@ -695,7 +695,7 @@
 		end
 
 		
-		else if (opcode == VDIV) 
+		else if (opcode == VDIV)  // divide
 		begin
             case (ww)
                 2'b00: 
@@ -736,11 +736,11 @@
                 end
             endcase
 		end
-		else if (opcode == VMOD) 
+		else if (opcode == VMOD) // mod
 		begin
             case (ww)
                 2'b00: 
-				begin // 8-bit division, segment each 8-bit field
+				begin // 8-bit mod, segment each 8-bit field
                     result[0:7]    = remainder_8bit_0;
                     result[8:15]   = remainder_8bit_1;
                     result[16:23]  = remainder_8bit_2;
@@ -752,7 +752,7 @@
                     divide_by_0 = div_by_0_8bit_0 | div_by_0_8bit_1 | div_by_0_8bit_2 | div_by_0_8bit_3 | div_by_0_8bit_4 | div_by_0_8bit_5 | div_by_0_8bit_6 | div_by_0_8bit_7;
                 end
                 2'b01: 
-				begin // 16-bit division, segment each 16-bit field
+				begin // 16-bit mod, segment each 16-bit field
                     result[0:15]   = remainder_16bit_0;
                     result[16:31]  = remainder_16bit_1;
                     result[32:47]  = remainder_16bit_2;
@@ -760,13 +760,13 @@
                     divide_by_0 = div_by_0_16bit_0 | div_by_0_16bit_1 | div_by_0_16bit_2 | div_by_0_16bit_3;
                 end
                 2'b10: 
-				begin // 32-bit division, segment each 32-bit field
+				begin // 32-bit mod, segment each 32-bit field
                     result[0:31]   =remainder_32bit_0;
                     result[32:63]  = remainder_32bit_1;
                     divide_by_0 = div_by_0_32bit_0 | div_by_0_32bit_1;
                 end
                 2'b11: 
-				begin // 64-bit division, entire 64-bit field
+				begin // 64-bit mod, entire 64-bit field
                     result = remainder_64bit;
                     divide_by_0 = div_by_0_64bit;
                 end
@@ -779,7 +779,7 @@
 
         end
 		
-		else if (opcode == VSQEU) 
+		else if (opcode == VSQEU) //sqaure even
 		begin
             case (ww)
                 2'b00: 
@@ -802,7 +802,7 @@
            endcase   
         end
 		
-		else if (opcode == VSQOU) 
+		else if (opcode == VSQOU) // square odd
 		begin
             case (ww)
                 2'b00: 
@@ -826,7 +826,7 @@
         end 
 		
 		
-		else  if (opcode == VSQRT) 
+		else  if (opcode == VSQRT) // square Root
 		 begin
             case (ww)
                 2'b00: 
