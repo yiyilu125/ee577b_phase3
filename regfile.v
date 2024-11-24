@@ -2,19 +2,19 @@ module register_file (
     input clk,
     input reset,
     input [4:0] read_address1,
-    input [4:0] read_address2,    
-    input writen_en,               // write back enable
+    input [4:0] read_address2,
+    input writen_en,               // write-back enable signal
     input [4:0] write_address,     // 5-bit address for 32 registers
     input [63:0] data_in,
-    input [2:0] ppp,                // participation bits
+    input [2:0] ppp,               // participation bits
     output reg [63:0] data_out1,
     output reg [63:0] data_out2
 );
 
     integer i;                    // loop variable
-    reg [63:0] regfile [0:31];    // 32 x 64-bit register file
+    reg [63:0] regfile [0:31];    // 32-bit address 64-bit data register file
 
-    // Read logic (combinational)
+    // Asynchronous Read Operation with Internal Forwarding
     always @(*) begin
         if (writen_en && (write_address == read_address1) && write_address != 5'b00000) begin
             data_out1 = data_in;
@@ -29,7 +29,8 @@ module register_file (
         end
     end
 
-    // Write logic (sequential with sync reset)
+    // Write operation with synchronous RESET.
+    // reg[0] is hard-wired to 0 and cannot be written.
     always @(posedge clk) begin
         if (reset) begin
             for (i = 0; i < 32; i = i + 1) begin
