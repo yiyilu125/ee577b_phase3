@@ -1,5 +1,5 @@
 module pipeline #(
-    parameter INSTRUCTION_WIDTH = 32,
+    parameter INSTRUCTION_WIDTH = 32,              
     parameter DATA_WIDTH = 64,
     parameter REG_ADDRESS_LENGTH = 5,
     parameter OPCODE_LENGTH = 6,
@@ -10,6 +10,7 @@ module pipeline #(
     input [INSTRUCTION_WIDTH-1:0] imem_instruction,
     input [DATA_WIDTH-1:0] dmem_dataOut,
 	input [DATA_WIDTH-1:0] nic_dataOut,  // nic's data
+
     output [INSTRUCTION_WIDTH-1:0] imem_address,
     output [INSTRUCTION_WIDTH-1:0] dmem_address,
     output [DATA_WIDTH-1:0] dmem_dataIn,
@@ -21,7 +22,8 @@ module pipeline #(
 	output nicEnWr,
 	output [1:0] adder_nic
 );
-    /*stage 1: IF reg, wire*/
+    //BEGINNING OF DEFINE IDENTIFIER
+    /*--------------------------stage 1 IF: reg, wire--------------------------*/
     //stage register
     reg [INSTRUCTION_WIDTH-1:0] s1_reg_instruction;
     //wire
@@ -29,8 +31,8 @@ module pipeline #(
     wire [IMMEDIATE_ADDRESS_LENGTH-1:0] target_address;
     wire taken_sig;
 
-    /*stage 2: ID, wire*/
-    /*stage register*/
+    /*--------------------------stage 2 ID: reg, wire--------------------------*/
+    //stage register
     reg s2_reg_writen_en;
     reg [REG_ADDRESS_LENGTH-1:0] s2_reg_rd_address;
     reg [DATA_WIDTH-1:0] s2_reg_data1, s2_reg_data2;
@@ -39,7 +41,7 @@ module pipeline #(
     reg s2_reg_dmem_load_signal;
     reg s2_reg_nic_load_signal;
     reg [2:0] s2_reg_ppp;
-    /*wire*/
+    //wire
 	wire [1:0] ww; //width of arithmatic operation at S2
     wire [2:0] ppp;
     wire wire_writen_en;
@@ -53,7 +55,7 @@ module pipeline #(
     wire [DATA_WIDTH-1:0] reg_data1, reg_data2;
     wire [DATA_WIDTH-1:0] mux_rA_data, mux_rB_data;
     wire [5:0] opcode;  // fix 31->4
-   // wire [OPCODE_LENGTH-1:0] opcode; 
+
     wire [DMEM_ADDRESS_LENGTH-1:0] datamem_address;
     wire mux_ctrl_rA;
     wire mux_ctrl_rB;
@@ -61,7 +63,7 @@ module pipeline #(
     wire dmem_load_signal;
     wire nic_load_signal;
 
-    /*stage 3: EXE & MEM reg, wire*/
+    /*--------------------------stage 3 EXE & MEM: reg, wire--------------------------*/
     //stage register
     reg s3_reg_write_en;
     reg [REG_ADDRESS_LENGTH-1:0] s3_reg_rd_address;
@@ -71,6 +73,7 @@ module pipeline #(
     wire [DATA_WIDTH-1:0] alu_result;
     wire [DATA_WIDTH-1:0] mux_result;
     wire [DATA_WIDTH-1:0] data_result;
+    //END OF DEFINING IDENTIFIER
 
     /******************************stage 1: Instruction Fetch******************************/
     //PC module & IMEM module
@@ -90,11 +93,11 @@ module pipeline #(
             s1_reg_instruction <= imem_instruction; 
         end
     end
-
+    /******************************stage 1: Instruction Fetch******************************/
   
 
 
-  /******************************stage 2: Instruction Decode and Register Fetch******************************/
+    /******************************stage 2: Instruction Decode and Register Fetch******************************/
     /*Decode module & DHU module & Register File module*/
     instruction_decoder uut(
         //input
@@ -129,7 +132,7 @@ module pipeline #(
     );
 	
 	
-    //Harzard_detection_unit
+    //harzard_detection_unit
     hdu hdu_uut(
         .current_RA(read_address1_HDU),
         .current_RB(read_address2_HDU),
@@ -197,10 +200,10 @@ module pipeline #(
         s2_reg_ppp <= ppp;
         s2_reg_dmem_load_signal <= dmem_load_signal;
         s2_reg_nic_load_signal <= nic_load_signal;
-		
     end
+    /******************************stage 2: Instruction Decode and Register Fetch******************************/
 
-    /***************stage 3: Execution or Memory Access***************/
+    /******************************stage 3: Execution or Memory Access******************************/
     //mux module & ALU module & SFU module
     alu alu_module( //this alu may contains SFU
         .opcode(s2_opcode),
@@ -231,6 +234,5 @@ module pipeline #(
         s3_reg_result <= data_result;
         s3_reg_ppp <= s2_reg_ppp;
     end
-
-    /******************************stage 4: WB******************************/
+    /******************************stage 3: Execution or Memory Access******************************/
 endmodule
