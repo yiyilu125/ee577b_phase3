@@ -1,8 +1,8 @@
 import os
 import shutil
 
-# Define the constant path
-FILE_PATH = r"ee577b_phase3/test_cases"
+# Get the current script's directory
+FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Function to generate DMEM data
 def generater_data(src, des):
@@ -112,17 +112,17 @@ def generate_dmem_files():
 # Main function with menu
 def main():
     while True:
-        print("\nChoose an option:")
-        print("1. Generate DMEM files (each node sends to all other nodes)")
-        print("2. Generate IMEM files (type in instructions and generate)")
+        print("\nChoose an option: (enter operation number)")
+        print("1. Generate DMEM files (Each node sends to all other nodes)")
+        print("2. Generate IMEM files (Write assembly code in `command.txt` or type in manually)")
         print("3. Exit\n")
-        choice = input(" main >> ").strip().lower()  # Lowercase for consistent input
+        choice = input(" menu >> ").strip().lower()  # Lowercase for consistent input
 
         if choice == "1":
             generate_dmem_files()
         elif choice == "2":
             output_file = FILE_PATH + os.sep + "imem_test.fill"
-            core = input("Which to write ('test', 'all', or a 0-15 decimal number)\n core >> ").strip().lower()
+            core = input("Which to write ('test', 'all', or a 0-15 decimal number)\n imem: core >> ").strip().lower()
 
             if core == "test":
                 output_file = FILE_PATH + os.sep + "imem_test.fill"
@@ -135,10 +135,10 @@ def main():
                 print("Invalid input. Please enter 'test', 'all', or a decimal number between 0 and 15.")
                 continue
 
-            print("\nInput method:")
+            print("\nInput method: (enter a number)")
             print("1. Type instructions manually")
-            print("2. Read instructions from a file\n")
-            input_method = input("Choose input method (1 or 2): ").strip()
+            print("2. Read instructions from `command.txt`\n")
+            input_method = input("imem: input method >> ").strip()
 
             if input_method == "1":
                 # Type instructions manually
