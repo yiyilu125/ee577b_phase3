@@ -17,12 +17,11 @@ module input_ctrl #(
               ODD_POLARITY = 3'b010,
               EVEN_POLARITY = 3'b100;
 
-    //virtual channel buffer
-    //virtual buffer wire
     wire even_buffer_full, even_buffer_empty, even_buffer_wr_en, even_buffer_rd_en;
     wire odd_buffer_full, odd_buffer_empty, odd_buffer_wr_en, odd_buffer_rd_en;
     wire [BUFFER_DATA_WIDTH-1:0] even_buffer_data, odd_buffer_data;
 
+    //virtual buffer
     buffer #(
         .DATA_WIDTH(BUFFER_DATA_WIDTH),
         .DEPTH(BUFFER_DEPTH)
@@ -87,7 +86,8 @@ module input_ctrl #(
         endcase
     end
 
-    //output continuous logic
+    //output continuous logic: combinational logic
+    //all signal depends on the polarity
     assign even_buffer_wr_en = (cur_stat == ODD_POLARITY) ? sendI : 0;
     assign odd_buffer_wr_en = (cur_stat == EVEN_POLARITY) ? sendI : 0;
 

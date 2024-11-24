@@ -18,7 +18,7 @@ module buffer #(
 
     always @(posedge clk) begin
         if (rst) begin
-            // Reset the buffer state
+            //Reset the buffer state
             buffer_full <= 0;
             buffer_empty <= 1;
             //data_out <= {DATA_WIDTH{1'b0}};
