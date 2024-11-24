@@ -19,9 +19,9 @@ module round_robin_arbiter (
     always @(*) begin
         grant = 0; // Default grant is 0
         case (state)
-            state_req0: begin
+            state_req0: begin     // in state0 req0 has highest priority
                 if (req0 != 0 && empty == 1)
-                    grant = req0;
+                    grant = req0; // grant give
                 else if (req0 == 0 && req1 != 0 && empty == 1)
                     grant = req1;
                 else if (req1 == 0 && req2 != 0 && empty == 1)
@@ -29,7 +29,7 @@ module round_robin_arbiter (
                 else if (req2 == 0 && req3 != 0 && empty == 1)
                     grant = req3;
             end
-            state_req1: begin
+            state_req1: begin   // in state1 req1 has highest priority
                 if (req1 != 0 && empty == 1)
                     grant = req1;
                 else if (req1 == 0 && req2 != 0 && empty == 1)
@@ -39,7 +39,7 @@ module round_robin_arbiter (
                 else if (req3 == 0 && req0 != 0 && empty == 1)
                     grant = req0;
             end
-            state_req2: begin
+            state_req2: begin   // in state2 req2 has highest priority
                 if (req2 != 0 && empty == 1)
                     grant = req2;
                 else if (req2 == 0 && req3 != 0 && empty == 1)
@@ -49,7 +49,7 @@ module round_robin_arbiter (
                 else if (req0 == 0 && req1 != 0 && empty == 1)
                     grant = req1;
             end
-            state_req3: begin
+            state_req3: begin   // in state3 req3 has highest priority
                 if (req3 != 0 && empty == 1)
                     grant = req3;
                 else if (req3 == 0 && req0 != 0 && empty == 1)
@@ -72,7 +72,7 @@ module round_robin_arbiter (
         end else begin
             case (state)
                 state_req0: 
-                    if (req0 != 0 && empty == 1)
+                    if (req0 != 0 && empty == 1)   // state transition logic in S0
                         state <= state_req1;
                     else if (req0 == 0 && req1 != 0 && empty == 1)
                         state <= state_req2;
@@ -83,7 +83,7 @@ module round_robin_arbiter (
                     else
                         state <= state_req0; // Stay in current state if no requests
                 state_req1:
-                    if (req1 != 0 && empty == 1)
+                    if (req1 != 0 && empty == 1)  // state transition logic in S1
                         state <= state_req2;
                     else if (req1 == 0 && req2 != 0 && empty == 1)
                         state <= state_req3;
@@ -94,7 +94,7 @@ module round_robin_arbiter (
                     else
                         state <= state_req1; // Stay in current state if no requests
                 state_req2:
-                    if (req2 != 0 && empty == 1)
+                    if (req2 != 0 && empty == 1)   // state transition logic in S2
                         state <= state_req3;
                     else if (req2 == 0 && req3 != 0 && empty == 1)
                         state <= state_req0;
@@ -105,7 +105,7 @@ module round_robin_arbiter (
                     else
                         state <= state_req2; // Stay in current state if no requests
                 state_req3:
-                    if (req3 != 0 && empty == 1)
+                    if (req3 != 0 && empty == 1)   // state transition logic in S3
                         state <= state_req0;
                     else if (req3 == 0 && req0 != 0 && empty == 1)
                         state <= state_req1;
