@@ -33,7 +33,7 @@ module nic(
   
     always @(posedge clk) 
 	begin
-        if (reset) 
+        if (reset)  // reset logic
 		begin
             input_status <= 1'b0;     
             output_status <= 1'b0; 
