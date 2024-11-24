@@ -13,17 +13,17 @@ module instruction_decoder (
     output reg [15:0] Branch_immediate, // Immediate value for branch
     
     output reg [15:0] MEM_addr, // Memory address for M-type instructions
-	output reg store_Enable,
-	output reg mem_Enable,
+	output reg store_Enable,  // sw indicator
+	output reg mem_Enable,  // memory operation indicator
 	
-	output reg writen_en,	
-	output reg load_signal,
+	output reg writen_en,	//write indicator
+	output reg load_signal, // load indicator
 	
 	output reg [2:0]ppp,
-	output reg nicEn,
-	output reg nicEnWr,
-	output reg [1:0] adder_nic,
-	output reg load_nic
+	output reg nicEn,  //nic enable
+	output reg nicEnWr,// nic write enable
+	output reg [1:0] adder_nic,// adderress for nic
+	output reg load_nic  // load from nic indicator
 );
 
 always @(*) begin
@@ -146,7 +146,7 @@ always @(*) begin
 			mem_Enable=1;
 			
 			
-			if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==1)
+			if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==1) // read input status from input status reg
 			begin
 				nicEn=1;
 				nicEnWr=0;
@@ -154,7 +154,7 @@ always @(*) begin
 				load_signal=0;
 				load_nic=1;
 			end
-			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==0)
+			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==0&&instruction[0]==0) // read data from input channel
 			begin
 				nicEn=1;
 				nicEnWr=0;
@@ -163,7 +163,7 @@ always @(*) begin
 				load_nic=1;
 			end
 
-			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==1)
+			else if (instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==1)// read output channel status
 			begin
 				nicEn=1;
 				nicEnWr=0;
@@ -175,7 +175,7 @@ always @(*) begin
 			begin
 				nicEn=0;
 				nicEnWr=0;
-				load_signal=1;
+				load_signal=1;  
 				load_nic=0;
 			end
 			
@@ -199,12 +199,12 @@ always @(*) begin
             operation = 0; // Extract operation code from bits 5-0
                    
         
-			store_Enable=1;
-			mem_Enable=1;
+			store_Enable=1;  
+			mem_Enable=1;    
 			load_signal=0;
 			
 			
-			if(instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==0)
+			if(instruction[14]==1&&instruction[15]==1&&instruction[1]==1&&instruction[0]==0) // Send data to NIC 
 			begin
 				nicEn=1;
 				nicEnWr=1;
