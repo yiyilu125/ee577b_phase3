@@ -51,7 +51,7 @@ module pipeline #(
     wire [IMMEDIATE_ADDRESS_LENGTH-1:0] Branch_immediate; // immediate adder of BR Instruction
 	
     wire [DATA_WIDTH-1:0] reg_data1, reg_data2;
-    wire [DATA_WIDTH-1:0] mux_rA_data, mux_rB_data;
+    wire [DATA_WIDTH-1:0] mux_rA_data, mux_rB_data, mux_branch_data;
     wire [5:0] opcode;  // fix 31->4
    // wire [OPCODE_LENGTH-1:0] opcode; 
     wire [DMEM_ADDRESS_LENGTH-1:0] datamem_address;
@@ -155,13 +155,13 @@ module pipeline #(
     //forwarding unit mux
     mux_2 mux_ra (
         .in0(reg_data1),
-        .in1(mux_result),     //forwarding from stage 3
+        .in1(data_result),     //forwarding from stage 3
         .select(mux_ctrl_rA),
         .out(mux_rA_data)
     );
     mux_2 mux_rb(
         .in0(reg_data2),
-        .in1(mux_result),     //forwarding from stage 3
+        .in1(data_result),     //forwarding from stage 3
         .select(mux_ctrl_rB),
         .out(mux_rB_data)
     );
@@ -171,6 +171,14 @@ module pipeline #(
     assign dmem_address = datamem_address;
     assign nic_dataIn = mux_rA_data;
 
+    //mux for branch
+    mux_2 mux_branch(
+        .in0(reg_data1),
+        .in1(data_result),     //forwarding from stage 3
+        .select(mux_ctrl_rA),
+        .out(mux_branch_data)
+    );
+
     //Branch module
     branch branch_uut(
         .clk(clk),
@@ -178,7 +186,7 @@ module pipeline #(
 		
         .branch(BR),   
         .branch_target(Branch_immediate),  
-        .data_branch(reg_data1),    
+        .data_branch(mux_branch_data),    
 		
         //output
         .target_address(target_address),
