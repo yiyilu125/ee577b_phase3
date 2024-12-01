@@ -1,24 +1,3 @@
-module signal_selector (
-    input wire [4:0] rec_clear,     // 5-bit one-hot signal for selecting one output
-    output reg clear_pe,            // Output corresponding to rec_clear[0]
-    output reg clear_s,             // Output corresponding to rec_clear[1]
-    output reg clear_n,             // Output corresponding to rec_clear[2]
-    output reg clear_e,             // Output corresponding to rec_clear[3]
-    output reg clear_w              // Output corresponding to rec_clear[4]
-);
-
-always @(*) begin
-    clear_pe = rec_clear[0];
-    clear_s = rec_clear[1];
-    clear_n = rec_clear[2];
-    clear_e = rec_clear[3];
-    clear_w = rec_clear[4];
-end
-
-endmodule
-
-
-
 module opctrl (
     input clk,
     input reset,                        
@@ -45,40 +24,20 @@ reg [63:0] mem_odd;   // Storage for data when polarity = 1 (odd clock cycles)
 reg [4:0] clear;      // Indicates the direction from which the data is received
 reg empty_even, empty_odd;
 
-wire clear_pe_wire;  
-wire clear_s_wire;
-wire clear_n_wire;
-wire clear_e_wire;
-wire clear_w_wire;
-
-always @(*) begin
-    clear_pe = clear_pe_wire;
-    clear_s = clear_s_wire;
-    clear_n = clear_n_wire;
-    clear_e = clear_e_wire;
-    clear_w = clear_w_wire;
-end
-
-signal_selector uut (
-    .rec_clear(clear),           // Connect grant to rec_clear
-    .clear_pe(clear_pe_wire),    // Connect intermediate wires to clear signals
-    .clear_s(clear_s_wire),
-    .clear_n(clear_n_wire),
-    .clear_e(clear_e_wire),
-    .clear_w(clear_w_wire)
-);
-
 // State signal updates
 always @(posedge clk) begin
     if (reset) begin
-        empty <= 1;          // On reset, the module is empty and can receive data
+        // empty <= 1;          // On reset, the module is empty and can receive data
         empty_even <= 1;
         empty_odd <= 1;
-        data_out <= 0;
         mem_even <= 0;
         mem_odd <= 0;
-        clear <= 0;
-        send_output <= 0;
+        // clear <= 0;
+        clear_pe <= 0;
+        clear_s <= 0;
+        clear_n <= 0;
+        clear_e <= 0;
+        clear_w <= 0;
     end else begin
         // Update based on polarity
         if (polarity == 0) begin
@@ -123,6 +82,14 @@ always @(posedge clk) begin
             end
         end
     end
+end
+
+always @(*) begin
+    clear_pe = clear[0];
+    clear_s = clear[1];
+    clear_n = clear[2];
+    clear_e = clear[3];
+    clear_w = clear[4];
 end
 
 always @(*) begin
