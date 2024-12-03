@@ -27,17 +27,10 @@ reg empty_even, empty_odd;
 // State signal updates
 always @(posedge clk) begin
     if (reset) begin
-        // empty <= 1;          // On reset, the module is empty and can receive data
         empty_even <= 1;
         empty_odd <= 1;
         mem_even <= 0;
         mem_odd <= 0;
-        // clear <= 0;
-        clear_pe <= 0;
-        clear_s <= 0;
-        clear_n <= 0;
-        clear_e <= 0;
-        clear_w <= 0;
     end else begin
         // Update based on polarity
         if (polarity == 0) begin
